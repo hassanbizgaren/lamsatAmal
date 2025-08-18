@@ -294,6 +294,7 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showDonateModal, setShowDonateModal] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>('ar');
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
@@ -352,8 +353,12 @@ export default function Home() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                {currentLanguage === 'ar' ? 'أ' : 'L'}
+              <div className="w-12 h-12 rounded-full overflow-hidden">
+                <img 
+                  src="/lamsa.png" 
+                  alt="Lamsat Amal Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-800">{t.hero.title}</h1>
@@ -753,7 +758,10 @@ export default function Home() {
                 }
                 <HandHeart size={20} />
               </button>
-              <button className="inline-flex items-center gap-3 bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <button 
+                onClick={() => setShowDonateModal(true)}
+                className="inline-flex items-center gap-3 bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+              >
                 {currentLanguage === 'ar' 
                   ? 'تبرع الآن'
                   : currentLanguage === 'fr'
@@ -990,16 +998,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Logo & Description */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                  {currentLanguage === 'ar' ? 'أ' : 'L'}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">{t.hero.title}</h3>
-                  <p className="text-gray-400">{t.hero.subtitle}</p>
-                </div>
-              </div>
+                  <div className="lg:col-span-2">
+                    <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-full overflow-hidden">
+                      <img 
+                      src="/lamsa.png"
+                      alt="Lamsat Amal Logo"
+                      className="w-full h-full object-cover" 
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">{t.hero.title}</h3>
+                      <p className="text-gray-400">{t.hero.subtitle}</p>
+                    </div>
+                    </div>
               <p className="text-gray-300 leading-relaxed mb-6">
                 {t.footer.description}
               </p>
@@ -1065,6 +1077,83 @@ export default function Home() {
         >
           <ArrowUp size={20} />
         </button>
+      )}
+
+      {/* Donation Modal */}
+      {showDonateModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className={`bg-white rounded-3xl p-8 max-w-lg w-full mx-4 shadow-2xl ${isRTL ? 'rtl' : 'ltr'}`}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">
+                {currentLanguage === 'ar' 
+                  ? 'معلومات التبرع'
+                  : currentLanguage === 'fr'
+                  ? 'Informations de don'
+                  : 'Donation Information'
+                }
+              </h3>
+              <button 
+                onClick={() => setShowDonateModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X size={24} className="text-gray-500" />
+              </button>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-gray-50 p-4 rounded-2xl">
+                <p className="text-sm text-gray-600 mb-2">
+                  {currentLanguage === 'ar' 
+                    ? 'اسم الجمعية'
+                    : currentLanguage === 'fr'
+                    ? 'Nom de l\'association'
+                    : 'Association Name'
+                  }
+                </p>
+                <p className="text-lg font-semibold">جمعية لمسة أمل - Lamsat Amal Association</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-2xl">
+                <p className="text-sm text-gray-600 mb-2">IBAN</p>
+                <p className="text-lg font-mono bg-white p-3 rounded-xl select-all border border-gray-200">
+                  MA123456789012345678901234
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-2xl">
+                <p className="text-sm text-gray-600 mb-2">RIB</p>
+                <p className="text-lg font-mono bg-white p-3 rounded-xl select-all border border-gray-200">
+                  123456789012345678901234
+                </p>
+              </div>
+
+              <div className="bg-yellow-50 p-4 rounded-2xl">
+                <p className="text-sm text-yellow-800">
+                  {currentLanguage === 'ar' 
+                    ? 'شكراً لدعمكم. تبرعكم يساعدنا في مواصلة رسالتنا لدعم أطفال التوحد وأسرهم.'
+                    : currentLanguage === 'fr'
+                    ? 'Merci pour votre soutien. Votre don nous aide à poursuivre notre mission auprès des enfants autistes et leurs familles.'
+                    : 'Thank you for your support. Your donation helps us continue our mission to support children with autism and their families.'
+                  }
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex justify-end">
+              <button
+                onClick={() => setShowDonateModal(false)}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg font-semibold transition-all duration-300"
+              >
+                {currentLanguage === 'ar' 
+                  ? 'إغلاق'
+                  : currentLanguage === 'fr'
+                  ? 'Fermer'
+                  : 'Close'
+                }
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
