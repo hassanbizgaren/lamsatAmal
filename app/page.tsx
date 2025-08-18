@@ -141,9 +141,9 @@ const translations: Record<Language, Translations> = {
         send: 'إرسال الرسالة'
       },
       info: {
-        address: 'الرباط، المغرب',
+        address: 'كلميم، المغرب',
         phone: '+212 6 12 34 56 78',
-        email: 'contact@lamsat-amal.org'
+        email: 'lamsatamal589@gmail.com'
       }
     },
     footer: {
@@ -207,9 +207,9 @@ const translations: Record<Language, Translations> = {
         send: 'Envoyer le message'
       },
       info: {
-        address: 'Rabat, Maroc',
+        address: 'Guelmim, Maroc',
         phone: '+212 6 12 34 56 78',
-        email: 'contact@lamsat-amal.org'
+        email: 'lamsatamal589@gmail.com'
       }
     },
     footer: {
@@ -273,9 +273,9 @@ const translations: Record<Language, Translations> = {
         send: 'Send Message'
       },
       info: {
-        address: 'Rabat, Morocco',
+        address: 'Guelmim, Morocco',
         phone: '+212 6 12 34 56 78',
-        email: 'contact@lamsat-amal.org'
+        email: 'lamsatamal589@gmail.com'
       }
     },
     footer: {
