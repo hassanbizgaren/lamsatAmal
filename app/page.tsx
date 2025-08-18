@@ -141,7 +141,7 @@ const translations: Record<Language, Translations> = {
         send: 'إرسال الرسالة'
       },
       info: {
-        address: 'كلميم، المغرب',
+        address: 'اكادير، المغرب',
         phone: '+212 6 12 34 56 78',
         email: 'lamsatamal589@gmail.com'
       }
@@ -207,7 +207,7 @@ const translations: Record<Language, Translations> = {
         send: 'Envoyer le message'
       },
       info: {
-        address: 'Guelmim, Maroc',
+        address: 'Agadir, Maroc',
         phone: '+212 6 12 34 56 78',
         email: 'lamsatamal589@gmail.com'
       }
@@ -273,7 +273,7 @@ const translations: Record<Language, Translations> = {
         send: 'Send Message'
       },
       info: {
-        address: 'Guelmim, Morocco',
+        address: 'Agadir, Morocco',
         phone: '+212 6 12 34 56 78',
         email: 'lamsatamal589@gmail.com'
       }
@@ -659,7 +659,7 @@ export default function Home() {
             {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
               <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square">
                 <img 
-                  src={`./gallery${index}.jpg`}
+                  src={`/gallery${index}.jpeg`}
                   alt={currentLanguage === 'ar' 
                     ? 'صورة من أنشطتنا'
                     : currentLanguage === 'fr'
@@ -667,17 +667,13 @@ export default function Home() {
                     : 'Photo from our activities'
                   }
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/default-gallery.jpg';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                   <div className="p-4 text-white">
-                    <p className="font-medium">
-                      {currentLanguage === 'ar' 
-                        ? 'نشاط ' + index
-                        : currentLanguage === 'fr'
-                        ? 'Activité ' + index
-                        : 'Activity ' + index
-                      }
-                    </p>
                   </div>
                 </div>
               </div>
@@ -747,7 +743,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button 
-                onClick={() => scrollToSection('contact')}
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSea7TTImfOuIHIeRpdBNjKzhPfGyZiXzP0vP3c10TnDXaApwA/viewform?usp=preview', '_blank')}
                 className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
               >
                 {currentLanguage === 'ar' 
@@ -1114,16 +1110,16 @@ export default function Home() {
               </div>
 
               <div className="bg-gray-50 p-4 rounded-2xl">
-                <p className="text-sm text-gray-600 mb-2">IBAN</p>
+                <p className="text-sm text-gray-600 mb-2">Agency Location</p>
                 <p className="text-lg font-mono bg-white p-3 rounded-xl select-all border border-gray-200">
-                  MA123456789012345678901234
+                  Agadir Hay DAKHLA
                 </p>
               </div>
 
               <div className="bg-gray-50 p-4 rounded-2xl">
                 <p className="text-sm text-gray-600 mb-2">RIB</p>
                 <p className="text-lg font-mono bg-white p-3 rounded-xl select-all border border-gray-200">
-                  123456789012345678901234
+                  350 810 0000000013033609
                 </p>
               </div>
 
