@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { 
   Heart, 
   Users, 
@@ -285,11 +285,17 @@ const translations: Record<Language, Translations> = {
   }
 };
 
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS
+emailjs.init('Zon_qY_7e-7Pw3khE');
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>('ar');
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -622,6 +628,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+              {currentLanguage === 'ar' 
+                ? 'معرض الصور'
+                : currentLanguage === 'fr'
+                ? 'Galerie photos'
+                : 'Photo Gallery'
+              }
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {currentLanguage === 'ar' 
+                ? 'لحظات مميزة من أنشطتنا وفعالياتنا'
+                : currentLanguage === 'fr'
+                ? 'Moments spéciaux de nos activités et événements'
+                : 'Special moments from our activities and events'
+              }
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+              <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square">
+                <img 
+                  src={`./gallery${index}.jpg`}
+                  alt={currentLanguage === 'ar' 
+                    ? 'صورة من أنشطتنا'
+                    : currentLanguage === 'fr'
+                    ? 'Photo de nos activités'
+                    : 'Photo from our activities'
+                  }
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <p className="font-medium">
+                      {currentLanguage === 'ar' 
+                        ? 'نشاط ' + index
+                        : currentLanguage === 'fr'
+                        ? 'Activité ' + index
+                        : 'Activity ' + index
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <button className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              {currentLanguage === 'ar' 
+                ? 'عرض المزيد من الصور'
+                : currentLanguage === 'fr'
+                ? 'Voir plus de photos'
+                : 'View More Photos'
+              }
+              <Star size={20} />
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Message Section */}
       <section className="py-20 bg-gradient-to-r from-yellow-50 to-green-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
@@ -718,9 +789,41 @@ export default function Home() {
                   : 'Send us a message'
                 }
               </h3>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const formData = new FormData(form);
+                
+                setFormStatus('sending');
+                
+                try {
+                  const result = await emailjs.send(
+                    'service_8bn6kjl',
+                    'template_fj86mfb',
+                    {
+                      user_name: formData.get('user_name'),
+                      user_email: formData.get('user_email'),
+                      user_phone: formData.get('user_phone'),
+                      message: formData.get('message'),
+                      to_name: 'Lamsat Amal Association',
+                    },
+                    'Zon_qY_7e-7Pw3khE'
+                  );
+                  
+                  console.log('Email sent successfully:', result);
+                  
+                  setFormStatus('success');
+                  form.reset();
+                  setTimeout(() => setFormStatus('idle'), 3000);
+                } catch (error) {
+                  console.error('Failed to send email:', error);
+                  setFormStatus('error');
+                  setTimeout(() => setFormStatus('idle'), 3000);
+                }
+              }}>
                 <div>
                   <input
+                    name="user_name"
                     type="text"
                     placeholder={t.contact.form.name}
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:border-green-500 focus:outline-none transition-colors"
@@ -729,6 +832,7 @@ export default function Home() {
                 </div>
                 <div>
                   <input
+                    name="user_email"
                     type="email"
                     placeholder={t.contact.form.email}
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:border-green-500 focus:outline-none transition-colors"
@@ -737,6 +841,7 @@ export default function Home() {
                 </div>
                 <div>
                   <input
+                    name="user_phone"
                     type="tel"
                     placeholder={currentLanguage === 'ar' ? 'رقم الهاتف' : currentLanguage === 'fr' ? 'Numéro de téléphone' : 'Phone number'}
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:border-green-500 focus:outline-none transition-colors"
@@ -744,6 +849,7 @@ export default function Home() {
                 </div>
                 <div>
                   <textarea
+                    name="message"
                     placeholder={t.contact.form.message}
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl text-lg focus:border-green-500 focus:outline-none transition-colors resize-none"
                     rows={5}
@@ -752,9 +858,37 @@ export default function Home() {
                 </div>
                 <button 
                   type="submit" 
-                  className="w-full inline-flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  disabled={formStatus === 'sending'}
+                  className={`w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 transform ${
+                    formStatus === 'sending'
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : formStatus === 'success'
+                      ? 'bg-green-500'
+                      : formStatus === 'error'
+                      ? 'bg-red-500'
+                      : 'bg-green-600 hover:bg-green-700 hover:scale-105'
+                  } text-white`}
                 >
-                  {t.contact.form.send}
+                  {formStatus === 'sending' 
+                    ? currentLanguage === 'ar' 
+                      ? 'جاري الإرسال...'
+                      : currentLanguage === 'fr'
+                      ? 'Envoi en cours...'
+                      : 'Sending...'
+                    : formStatus === 'success'
+                    ? currentLanguage === 'ar'
+                      ? 'تم الإرسال بنجاح!'
+                      : currentLanguage === 'fr'
+                      ? 'Message envoyé!'
+                      : 'Message sent!'
+                    : formStatus === 'error'
+                    ? currentLanguage === 'ar'
+                      ? 'حدث خطأ!'
+                      : currentLanguage === 'fr'
+                      ? 'Erreur!'
+                      : 'Error!'
+                    : t.contact.form.send
+                  }
                   <Send size={20} />
                 </button>
               </form>
