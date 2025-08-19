@@ -142,7 +142,7 @@ const translations: Record<Language, Translations> = {
       },
       info: {
         address: 'اكادير، المغرب',
-        phone: '+212 6 12 34 56 78',
+        phone: '+212 6 47 62 51 49',
         email: 'lamsatamal589@gmail.com'
       }
     },
@@ -208,7 +208,7 @@ const translations: Record<Language, Translations> = {
       },
       info: {
         address: 'Agadir, Maroc',
-        phone: '+212 6 12 34 56 78',
+        phone: '+212 6 47 62 51 49',
         email: 'lamsatamal589@gmail.com'
       }
     },
@@ -274,7 +274,7 @@ const translations: Record<Language, Translations> = {
       },
       info: {
         address: 'Agadir, Morocco',
-        phone: '+212 6 12 34 56 78',
+        phone: '+212 6 47 62 51 49',
         email: 'lamsatamal589@gmail.com'
       }
     },
