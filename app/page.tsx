@@ -2,6 +2,8 @@
 'use client';
 
 import { useState, useEffect, FormEvent } from 'react';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import { 
   Heart, 
   Users, 
@@ -297,6 +299,8 @@ export default function Home() {
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<Language>('ar');
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -657,7 +661,14 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
-              <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square">
+              <div 
+                key={index} 
+                className="relative group overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer"
+                onClick={() => {
+                  setCurrentImageIndex(index - 1);
+                  setIsLightboxOpen(true);
+                }}
+              >
                 <img 
                   src={`/gallery${index}.jpeg`}
                   alt={currentLanguage === 'ar' 
@@ -1151,6 +1162,15 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      <Lightbox
+        open={isLightboxOpen}
+        close={() => setIsLightboxOpen(false)}
+        index={currentImageIndex}
+        slides={[1, 2, 3, 4, 5, 6, 7, 8].map((index) => ({
+          src: `/gallery${index}.jpeg`,
+        }))}
+      />
     </div>
   );
 }
