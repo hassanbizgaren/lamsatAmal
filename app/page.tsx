@@ -620,39 +620,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Objectives Section */}
-      <section id="objectives" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">{t.objectives.title}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {currentLanguage === 'ar' 
-                ? 'نعمل على تحقيق مجموعة من الأهداف الاستراتيجية لخدمة مجتمع التوحد وتطوير الخدمات المقدمة'
-                : currentLanguage === 'fr'
-                ? 'Nous travaillons à atteindre un ensemble d\'objectifs stratégiques pour servir la communauté autiste et développer les services offerts'
-                : 'We work to achieve a set of strategic objectives to serve the autism community and develop the services provided'
-              }
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {t.objectives.items.map((objective, index) => {
-              const icons = [BookOpen, Puzzle, PartyPopper, HandHeart];
-              const IconComponent = icons[index];
-              return (
-                <div key={index} className="bg-white rounded-3xl p-8 shadow-xl text-center hover:transform hover:scale-105 transition-all duration-300">
-                  <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <IconComponent size={40} className="text-yellow-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">{objective.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{objective.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Vision & Mission Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
@@ -702,6 +669,39 @@ export default function Home() {
                 }
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Objectives Section */}
+      <section id="objectives" className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">{t.objectives.title}</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {currentLanguage === 'ar' 
+                ? 'نعمل على تحقيق مجموعة من الأهداف الاستراتيجية لخدمة مجتمع التوحد وتطوير الخدمات المقدمة'
+                : currentLanguage === 'fr'
+                ? 'Nous travaillons à atteindre un ensemble d\'objectifs stratégiques pour servir la communauté autiste et développer les services offerts'
+                : 'We work to achieve a set of strategic objectives to serve the autism community and develop the services provided'
+              }
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.objectives.items.map((objective, index) => {
+              const icons = [BookOpen, Puzzle, PartyPopper, HandHeart];
+              const IconComponent = icons[index];
+              return (
+                <div key={index} className="bg-white rounded-3xl p-8 shadow-xl text-center hover:transform hover:scale-105 transition-all duration-300">
+                  <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <IconComponent size={40} className="text-yellow-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-4">{objective.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{objective.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
