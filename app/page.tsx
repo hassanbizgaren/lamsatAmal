@@ -420,22 +420,65 @@ export default function Home() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
-              {[
-                { name: t.nav.home, id: 'home' },
-                { name: t.nav.about, id: 'about' },
-                { name: t.nav.objectives, id: 'objectives' },
-                { name: t.nav.activities, id: 'activities' },
-                { name: t.nav.contact, id: 'contact' }
-              ].map((item) => (
+              {/* Home Button */}
+              <button
+                onClick={() => scrollToSection('home')}
+                className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium relative group px-4 py-2 rounded-full hover:bg-green-50"
+              >
+                {t.nav.home}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
+              </button>
+
+              {/* About Dropdown */}
+              <div className="relative group">
                 <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium relative group px-4 py-2 rounded-full hover:bg-green-50"
+                  onClick={() => scrollToSection('about')}
+                  className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium relative group px-4 py-2 rounded-full hover:bg-green-50 flex items-center gap-1"
                 >
-                  {item.name}
+                  {t.nav.about}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
                 </button>
-              ))}
+                <div className="absolute top-full left-0 mt-1 py-2 bg-white shadow-xl rounded-xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 min-w-[200px] z-50">
+                  <button
+                    onClick={() => scrollToSection('vision-mission')}
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:text-green-600 hover:bg-green-50"
+                  >
+                    {currentLanguage === 'ar' 
+                      ? 'رؤيتنا و مهمتنا'
+                      : currentLanguage === 'fr'
+                      ? 'Vision et Mission'
+                      : 'Vision & Mission'
+                    }
+                  </button>
+                  <button
+                    onClick={() => scrollToSection('objectives')}
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:text-green-600 hover:bg-green-50"
+                  >
+                    {t.nav.objectives}
+                  </button>
+                </div>
+              </div>
+
+              {/* Activities Button */}
+              <button
+                onClick={() => scrollToSection('activities')}
+                className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium relative group px-4 py-2 rounded-full hover:bg-green-50"
+              >
+                {t.nav.activities}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
+              </button>
+
+              {/* Contact Button */}
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium relative group px-4 py-2 rounded-full hover:bg-green-50"
+              >
+                {t.nav.contact}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></span>
+              </button>
               
               {/* Language Switcher */}
               <div className="flex items-center gap-2 ml-4 pl-4 border-l border-gray-200">
@@ -470,21 +513,58 @@ export default function Home() {
           {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg rounded-b-2xl p-6 border-t">
-              {[
-                { name: t.nav.home, id: 'home' },
-                { name: t.nav.about, id: 'about' },
-                { name: t.nav.objectives, id: 'objectives' },
-                { name: t.nav.activities, id: 'activities' },
-                { name: t.nav.contact, id: 'contact' }
-              ].map((item) => (
+              {/* Home */}
+              <button
+                onClick={() => scrollToSection('home')}
+                className="block w-full text-right py-3 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium border-b border-gray-100"
+              >
+                {t.nav.home}
+              </button>
+              
+              {/* About with subheadings */}
+              <div className="py-3 border-b border-gray-100">
                 <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-right py-3 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium border-b border-gray-100 last:border-b-0"
+                  onClick={() => scrollToSection('about')}
+                  className="block w-full text-right text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
                 >
-                  {item.name}
+                  {t.nav.about}
                 </button>
-              ))}
+                <div className="mt-2 pr-4 space-y-2">
+                  <button
+                    onClick={() => scrollToSection('vision-mission')}
+                    className="block w-full text-right py-1 text-gray-600 hover:text-green-600 transition-colors duration-300"
+                  >
+                    {currentLanguage === 'ar' 
+                      ? 'رؤيتنا و مهمتنا'
+                      : currentLanguage === 'fr'
+                      ? 'Vision et Mission'
+                      : 'Vision & Mission'
+                    }
+                  </button>
+                  <button
+                    onClick={() => scrollToSection('objectives')}
+                    className="block w-full text-right py-1 text-gray-600 hover:text-green-600 transition-colors duration-300"
+                  >
+                    {t.nav.objectives}
+                  </button>
+                </div>
+              </div>
+
+              {/* Activities */}
+              <button
+                onClick={() => scrollToSection('activities')}
+                className="block w-full text-right py-3 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium border-b border-gray-100"
+              >
+                {t.nav.activities}
+              </button>
+
+              {/* Contact */}
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="block w-full text-right py-3 text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium"
+              >
+                {t.nav.contact}
+              </button>
               
               {/* Mobile Language Switcher */}
               <div className="flex items-center gap-2 pt-4 mt-4 border-t border-gray-200">
@@ -621,7 +701,7 @@ export default function Home() {
       </section>
 
       {/* Vision & Mission Section */}
-      <section className="py-20 bg-white">
+      <section id="vision-mission" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16">
             {/* Vision */}
