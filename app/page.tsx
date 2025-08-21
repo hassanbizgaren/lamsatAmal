@@ -19,7 +19,9 @@ import {
   ArrowUp,
   Menu,
   X,
-  Globe
+  Globe,
+  Eye,
+  Target
 } from 'lucide-react';
 
 // Language type
@@ -63,6 +65,16 @@ interface Translations {
       title: string;
       description: string;
     }>;
+  };
+  visionMission: {
+    vision: {
+      title: string;
+      description: string;
+    };
+    mission: {
+      title: string;
+      description: string;
+    };
   };
   contact: {
     title: string;
@@ -147,7 +159,17 @@ const translations: Record<Language, Translations> = {
       info: {
         address: 'اكادير، المغرب',
         phone: '+212 6 47 62 51 49',
-        email: 'lamsatamal589@gmail.com'
+        email: 'lamsatamalassociation@gmail.com'
+      }
+    },
+    visionMission: {
+      vision: {
+        title: 'رؤيتنا',
+        description: 'نتطلع إلى مجتمع يتفهم ويدعم أطفال التوحد وأسرهم، ويوفر لهم فرصاً متكافئة للنمو والتطور والمشاركة الفعالة في المجتمع.'
+      },
+      mission: {
+        title: 'مهمتنا',
+        description: 'تقديم الدعم الشامل والخدمات المتخصصة لأطفال التوحد وأسرهم، من خلال برامج تدريبية وتأهيلية عالية الجودة، ونشر الوعي المجتمعي، وبناء شراكات فعالة.'
       }
     },
     footer: {
@@ -162,6 +184,16 @@ const translations: Record<Language, Translations> = {
       objectives: 'Objectifs',
       activities: 'Activités',
       contact: 'Contact'
+    },
+    visionMission: {
+      vision: {
+        title: 'Notre Vision',
+        description: 'Nous envisageons une société qui comprend et soutient les enfants autistes et leurs familles, leur offrant des opportunités égales de croissance, de développement et de participation active dans la communauté.'
+      },
+      mission: {
+        title: 'Notre Mission',
+        description: 'Fournir un soutien complet et des services spécialisés aux enfants autistes et à leurs familles à travers des programmes de formation et de réhabilitation de haute qualité, la sensibilisation communautaire et la construction de partenariats efficaces.'
+      }
     },
     hero: {
       title: 'Association Lamsat Amal',
@@ -215,7 +247,7 @@ const translations: Record<Language, Translations> = {
       info: {
         address: 'Agadir, Maroc',
         phone: '+212 6 47 62 51 49',
-        email: 'lamsatamal589@gmail.com'
+        email: 'lamsatamalassociation@gmail.com'
       }
     },
     footer: {
@@ -230,6 +262,16 @@ const translations: Record<Language, Translations> = {
       objectives: 'Objectives',
       activities: 'Activities',
       contact: 'Contact'
+    },
+    visionMission: {
+      vision: {
+        title: 'Our Vision',
+        description: 'We envision a society that understands and supports children with autism and their families, providing them with equal opportunities for growth, development, and active participation in the community.'
+      },
+      mission: {
+        title: 'Our Mission',
+        description: 'To provide comprehensive support and specialized services to children with autism and their families through high-quality training and rehabilitation programs, community awareness, and building effective partnerships.'
+      }
     },
     hero: {
       title: 'Lamsat Amal Association',
@@ -283,7 +325,7 @@ const translations: Record<Language, Translations> = {
       info: {
         address: 'Agadir, Morocco',
         phone: '+212 6 47 62 51 49',
-        email: 'lamsatamal589@gmail.com'
+        email: 'lamsatamalassociation@gmail.com'
       }
     },
     footer: {
@@ -607,6 +649,59 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16">
+            {/* Vision */}
+            <div className="bg-green-50 rounded-3xl p-12 transform hover:scale-105 transition-all duration-300">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <Eye size={32} className="text-green-600" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6">
+                {currentLanguage === 'ar' 
+                  ? 'رؤيتنا'
+                  : currentLanguage === 'fr'
+                  ? 'Notre Vision'
+                  : 'Our Vision'
+                }
+              </h3>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {currentLanguage === 'ar' 
+                  ? 'نتطلع إلى مجتمع يتفهم ويدعم أطفال التوحد وأسرهم، ويوفر لهم فرصاً متكافئة للنمو والتطور والمشاركة الفعالة في المجتمع.'
+                  : currentLanguage === 'fr'
+                  ? 'Nous envisageons une société qui comprend et soutient les enfants autistes et leurs familles, leur offrant des opportunités égales de croissance, de développement et de participation active dans la communauté.'
+                  : 'We envision a society that understands and supports children with autism and their families, providing them with equal opportunities for growth, development, and active participation in the community.'
+                }
+              </p>
+            </div>
+
+            {/* Mission */}
+            <div className="bg-yellow-50 rounded-3xl p-12 transform hover:scale-105 transition-all duration-300">
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
+                <Target size={32} className="text-yellow-600" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6">
+                {currentLanguage === 'ar' 
+                  ? 'مهمتنا'
+                  : currentLanguage === 'fr'
+                  ? 'Notre Mission'
+                  : 'Our Mission'
+                }
+              </h3>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {currentLanguage === 'ar' 
+                  ? 'تقديم الدعم الشامل والخدمات المتخصصة لأطفال التوحد وأسرهم، من خلال برامج تدريبية وتأهيلية عالية الجودة، ونشر الوعي المجتمعي، وبناء شراكات فعالة.'
+                  : currentLanguage === 'fr'
+                  ? 'Fournir un soutien complet et des services spécialisés aux enfants autistes et à leurs familles à travers des programmes de formation et de réhabilitation de haute qualité, la sensibilisation communautaire et la construction de partenariats efficaces.'
+                  : 'To provide comprehensive support and specialized services to children with autism and their families through high-quality training and rehabilitation programs, community awareness, and building effective partnerships.'
+                }
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1069,6 +1164,30 @@ export default function Home() {
                 <li className="flex items-center gap-3 text-gray-300">
                   <Mail size={18} />
                   <span>{t.contact.info.email}</span>
+                </li>
+                <li className="flex items-center gap-4 pt-4">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61571588355274"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D9%84%D9%85%D8%B3%D8%A9-%D8%A7%D9%85%D9%84-association-lamsat-amal-575b9a193?trk=contact-info"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-blue-700 hover:bg-blue-800 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </a>
                 </li>
               </ul>
             </div>
