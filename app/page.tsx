@@ -130,7 +130,9 @@ const translations: Record<Language, Translations> = {
         { title: 'ورش تدريبية', description: 'ورش متخصصة للأهالي والمختصين حول كيفية التعامل مع أطفال طيف التوحد' },
         { title: 'أنشطة ترفيهية', description: 'برامج ترفيهية وتعليمية مصممة خصيصاً لأطفال طيف التوحد' },
         { title: 'جلسات دعم', description: 'جلسات دعم نفسي واجتماعي للأسر والأطفال' },
-        { title: 'حملات توعية', description: 'حملات توعوية لنشر الوعي حول طيف التوحد في المجتمع' }
+        { title: 'حملات توعية', description: 'حملات توعوية لنشر الوعي حول طيف التوحد في المجتمع' },
+        { title: 'برامج تأهيل', description: 'برامج تأهيلية وعلاجية متخصصة لتطوير مهارات الأطفال' },
+        { title: 'مجموعات دعم الأهالي', description: 'لقاءات دورية لتبادل الخبرات والدعم المتبادل بين الأسر' }
       ]
     },
     contact: {
@@ -196,7 +198,9 @@ const translations: Record<Language, Translations> = {
         { title: 'Ateliers de formation', description: 'Ateliers spécialisés pour les parents et professionnels sur la prise en charge des enfants autistes' },
         { title: 'Activités récréatives', description: 'Programmes récréatifs et éducatifs conçus spécialement pour les enfants autistes' },
         { title: 'Séances de soutien', description: 'Séances de soutien psychologique et social pour les familles et les enfants' },
-        { title: 'Campagnes de sensibilisation', description: 'Campagnes de sensibilisation pour diffuser la conscience sur l\'autisme dans la communauté' }
+        { title: 'Campagnes de sensibilisation', description: 'Campagnes de sensibilisation pour diffuser la conscience sur l\'autisme dans la communauté' },
+        { title: 'Programmes de réhabilitation', description: 'Programmes thérapeutiques spécialisés pour développer les compétences des enfants' },
+        { title: 'Groupes de soutien parental', description: 'Rencontres régulières pour partager les expériences et le soutien mutuel entre familles' }
       ]
     },
     contact: {
@@ -262,7 +266,9 @@ const translations: Record<Language, Translations> = {
         { title: 'Training Workshops', description: 'Specialized workshops for parents and professionals on caring for children with autism' },
         { title: 'Recreational Activities', description: 'Recreational and educational programs designed specifically for children with autism' },
         { title: 'Support Sessions', description: 'Psychological and social support sessions for families and children' },
-        { title: 'Awareness Campaigns', description: 'Awareness campaigns to spread consciousness about autism in the community' }
+        { title: 'Awareness Campaigns', description: 'Awareness campaigns to spread consciousness about autism in the community' },
+        { title: 'Rehabilitation Programs', description: 'Specialized therapeutic programs to develop children\'s skills' },
+        { title: 'Parent Support Groups', description: 'Regular meetings to share experiences and mutual support among families' }
       ]
     },
     contact: {
@@ -622,7 +628,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {t.activities.items.map((activity, index) => {
-              const imageSources = ['./p1.jpg', './p2.avif', './p3.avif', './p4.jpg'];
+              const imageSources = ['./p1.jpg', './p2.avif', './p3.avif', './p4.jpg', './p5.jpg', './p6.avif'];
               return (
                 <div key={index} className="bg-white rounded-3xl shadow-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300">
                   <img src={imageSources[index] || './p1.jpg'} alt={activity.title} className="w-full h-48 object-cover" />
@@ -816,9 +822,9 @@ export default function Home() {
                     'service_8bn6kjl',
                     'template_fj86mfb',
                     {
-                      user_name: formData.get('user_name'),
-                      user_email: formData.get('user_email'),
-                      user_phone: formData.get('user_phone'),
+                      from_name: formData.get('user_name'),
+                      from_email: formData.get('user_email'),
+                      phone: formData.get('user_phone'),
                       message: formData.get('message'),
                       to_name: 'Lamsat Amal Association',
                     },
